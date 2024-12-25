@@ -17,6 +17,17 @@ import {
   DevicePhoneMobileIcon
 } from '@heroicons/react/24/outline';
 
+// 添加动画变体
+const containerVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 }
+};
+
+const resultVariants = {
+  hidden: { opacity: 0, scale: 0.95 },
+  visible: { opacity: 1, scale: 1 }
+};
+
 export default function Calculator() {
   const [input, setInput] = useState<CalculatorInput>({
     exportType: '',
@@ -45,8 +56,9 @@ export default function Calculator() {
       
       <div className="container mx-auto px-4 py-8 max-w-2xl">
         <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
           className="space-y-8"
         >
           {/* Logo和标题 */}
@@ -142,8 +154,9 @@ export default function Calculator() {
           {/* 计算结果 */}
           {result && (
             <motion.div 
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
+              variants={resultVariants}
+              initial="hidden"
+              animate="visible"
               className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6"
             >
               <h2 className="text-lg font-medium text-gray-900 dark:text-white mb-4">计算结果</h2>
