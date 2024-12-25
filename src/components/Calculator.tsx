@@ -192,7 +192,7 @@ export default function Calculator() {
                 </div>
                 <div className="pt-3 border-t border-gray-200 dark:border-gray-700">
                   <div className="flex justify-between text-lg font-medium text-gray-900 dark:text-white">
-                    <span>总价</span>
+                    <span>月租（元/月）</span>
                     <span>¥{result.totalPrice.toFixed(2)}</span>
                   </div>
                 </div>
