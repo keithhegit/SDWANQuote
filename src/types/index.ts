@@ -2,6 +2,7 @@ export interface PriceItem {
   exportType: string;
   bandwidth: number;
   standardPrice: number;
+  includedIPs: number;
 }
 
 export interface CalculatorInput {

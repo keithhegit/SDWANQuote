@@ -15,7 +15,7 @@ export default function Calculator() {
 
   const [result, setResult] = useState<CalculationResult | null>(null);
 
-  const exportTypes = [...new Set(priceList.map(item => item.exportType))];
+  const exportTypes = Array.from(new Set(priceList.map(item => item.exportType)));
   const bandwidths = (exportType: string) => 
     priceList
       .filter(item => item.exportType === exportType)
