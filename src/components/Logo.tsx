@@ -1,27 +1,10 @@
-import Image from 'next/image';
 import { useState } from 'react';
 
 export function Logo() {
-  const [error, setError] = useState(false);
-
-  if (error) {
-    return (
-      <div className="relative w-[100px] h-[25px] flex items-center justify-center text-brand-500 font-medium">
-        OgCloud
-      </div>
-    );
-  }
-
+  // 由于图片加载问题，我们暂时使用文字Logo
   return (
-    <div className="relative w-[100px] h-[25px]">
-      <Image
-        src="/ogcloud-logo.png"
-        alt="OgCloud"
-        fill
-        className="object-contain"
-        priority
-        onError={() => setError(true)}
-      />
+    <div className="text-2xl font-bold text-brand-500 tracking-wide">
+      OgCloud
     </div>
   );
 } 

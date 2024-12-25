@@ -29,6 +29,22 @@ export const priceList: ExtendedPriceItem[] = [
   // 新加坡
   { exportType: "新加坡", bandwidth: 4, standardPrice: 10332, includedIPs: 1 },
   { exportType: "新加坡", bandwidth: 6, standardPrice: 15498, includedIPs: 1 },
+  { exportType: "新加坡", bandwidth: 8, standardPrice: 20664, includedIPs: 1 },
+  { exportType: "新加坡", bandwidth: 10, standardPrice: 25830, includedIPs: 1 },
+  { exportType: "新加坡", bandwidth: 20, standardPrice: 44000, includedIPs: 1 },
+  { exportType: "新加坡", bandwidth: 30, standardPrice: 60150, includedIPs: 3 },
+  { exportType: "新加坡", bandwidth: 40, standardPrice: 70520, includedIPs: 3 },
+  { exportType: "新加坡", bandwidth: 50, standardPrice: 88150, includedIPs: 3 },
+  { exportType: "新加坡", bandwidth: 60, standardPrice: 91680, includedIPs: 5 },
+  { exportType: "新加坡", bandwidth: 70, standardPrice: 106960, includedIPs: 5 },
+  { exportType: "新加坡", bandwidth: 80, standardPrice: 122240, includedIPs: 5 },
+  { exportType: "新加坡", bandwidth: 100, standardPrice: 152800, includedIPs: 5 },
+  { exportType: "新加坡", bandwidth: 150, standardPrice: 216450, includedIPs: 10 },
+  { exportType: "新加坡", bandwidth: 200, standardPrice: 288600, includedIPs: 10 },
+  { exportType: "新加坡", bandwidth: 300, standardPrice: 355200, includedIPs: 10 },
+  { exportType: "新加坡", bandwidth: 400, standardPrice: 473600, includedIPs: 10 },
+  { exportType: "新加坡", bandwidth: 500, standardPrice: 592000, includedIPs: 10 },
+  { exportType: "新加坡", bandwidth: 1000, standardPrice: 1117000, includedIPs: 10 },
   // ... 其他新加坡数据
 
   // 泰国

@@ -52,6 +52,21 @@ export default function Calculator() {
     setResult(result);
   };
 
+  const exportTypeOptions = [
+    { value: '', label: '请选择' },
+    ...exportTypes.map(type => ({ value: type, label: type }))
+  ];
+
+  const bandwidthOptions = input.exportType
+    ? [
+        { value: 0, label: '请选择带宽大小' },
+        ...bandwidths(input.exportType).map(bw => ({ 
+          value: bw, 
+          label: `${bw}M` 
+        }))
+      ]
+    : [{ value: 0, label: '请选择带宽大小' }];
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300">
       <ThemeToggle />
@@ -83,17 +98,14 @@ export default function Calculator() {
               
               <Select
                 label="出口方向"
-                options={exportTypes.map(type => ({ value: type, label: type }))}
+                options={exportTypeOptions}
                 value={input.exportType}
                 onChange={(e) => setInput({...input, exportType: e.target.value})}
               />
 
               <Select
                 label="带宽"
-                options={input.exportType 
-                  ? bandwidths(input.exportType).map(bw => ({ value: bw, label: `${bw}M` }))
-                  : []
-                }
+                options={bandwidthOptions}
                 value={input.bandwidth}
                 onChange={(e) => setInput({...input, bandwidth: Number(e.target.value)})}
                 disabled={!input.exportType}
