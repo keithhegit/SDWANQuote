@@ -1,25 +1,12 @@
 import { CalculatorInput, CalculationResult } from '@/types';
-import { priceList } from '@/data/prices';
 import { IP_PRICE, TERMINAL_PRICE } from '@/data/constants';
+import { priceList } from '@/data/prices';
 
-export const findBasePrice = (exportType: string, bandwidth: number): number => {
-  const item = priceList.find(
-    item => item.exportType === exportType && item.bandwidth === bandwidth
-  );
-  return item?.standardPrice ?? 0;
-};
-
-export const calculatePrice = ({
-  exportType,
-  bandwidth,
-  discount,
-  extraIPs,
-  mobileTerminals
-}: CalculatorInput): CalculationResult => {
-  const basePrice = findBasePrice(exportType, bandwidth);
-  const discountedPrice = basePrice * discount;
-  const extraIPsCost = extraIPs * IP_PRICE;
-  const terminalsCost = mobileTerminals * TERMINAL_PRICE;
+export function calculatePrice(input: CalculatorInput): CalculationResult {
+  const basePrice = findBasePrice(input.exportType, input.bandwidth);
+  const discountedPrice = basePrice * input.discount;
+  const extraIPsCost = input.extraIPs * IP_PRICE;
+  const terminalsCost = input.mobileTerminals * TERMINAL_PRICE;
   const totalPrice = discountedPrice + extraIPsCost + terminalsCost;
 
   return {
@@ -29,4 +16,11 @@ export const calculatePrice = ({
     terminalsCost,
     totalPrice
   };
-}; 
+}
+
+function findBasePrice(exportType: string, bandwidth: number): number {
+  const item = priceList.find(
+    item => item.exportType === exportType && item.bandwidth === bandwidth
+  );
+  return item ? item.standardPrice : 0;
+} 
