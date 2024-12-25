@@ -2,7 +2,8 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    unoptimized: true
+    unoptimized: process.env.NODE_ENV === 'development',
+    domains: [], // 如果Logo来自外部域名，需要在这里添加
   }
 }
 
