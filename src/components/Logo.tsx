@@ -1,10 +1,16 @@
-import { useState } from 'react';
+import Image from 'next/image';
 
 export function Logo() {
-  // 由于图片加载问题，我们暂时使用文字Logo
   return (
-    <div className="text-2xl font-bold text-brand-500 tracking-wide">
-      OgCloud
+    <div className="relative h-8">
+      <Image
+        src="/ogcloud-logo.png"
+        alt="OgCloud"
+        width={120}
+        height={32}
+        className="h-auto w-auto"
+        priority
+      />
     </div>
   );
 } 
