@@ -17,15 +17,17 @@ import {
   DevicePhoneMobileIcon
 } from '@heroicons/react/24/outline';
 
-// 添加动画变体
-const containerVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 }
+// 简化动画配置
+const fadeIn = {
+  initial: { opacity: 0 },
+  animate: { opacity: 1 },
+  transition: { duration: 0.3 }
 };
 
-const resultVariants = {
-  hidden: { opacity: 0, scale: 0.95 },
-  visible: { opacity: 1, scale: 1 }
+const slideUp = {
+  initial: { opacity: 0, y: 10 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.3 }
 };
 
 export default function Calculator() {
@@ -55,22 +57,23 @@ export default function Calculator() {
       <ThemeToggle />
       
       <div className="container mx-auto px-4 py-8 max-w-2xl">
-        <motion.div 
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="space-y-8"
-        >
+        <div className="space-y-8">
           {/* Logo和标题 */}
-          <div className="text-center space-y-4">
+          <motion.div 
+            {...fadeIn}
+            className="text-center space-y-4"
+          >
             <Logo />
             <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
               SDWAN价格计算器
             </h1>
-          </div>
+          </motion.div>
 
           {/* 主要内容区域 */}
-          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 space-y-6">
+          <motion.div 
+            {...slideUp}
+            className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 space-y-6"
+          >
             {/* 出口选择 */}
             <div className="space-y-4">
               <div className="flex items-center gap-2 text-lg font-medium text-gray-900 dark:text-white">
@@ -149,14 +152,12 @@ export default function Calculator() {
             >
               计算价格
             </Button>
-          </div>
+          </motion.div>
 
           {/* 计算结果 */}
           {result && (
             <motion.div 
-              variants={resultVariants}
-              initial="hidden"
-              animate="visible"
+              {...fadeIn}
               className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6"
             >
               <h2 className="text-lg font-medium text-gray-900 dark:text-white mb-4">计算结果</h2>
@@ -186,7 +187,7 @@ export default function Calculator() {
               </div>
             </motion.div>
           )}
-        </motion.div>
+        </div>
       </div>
     </div>
   );

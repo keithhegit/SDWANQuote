@@ -1,13 +1,17 @@
-@media print {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
   body {
-    background: white;
+    @apply antialiased;
   }
-  
-  .no-print {
-    display: none;
-  }
-  
-  .print-only {
-    display: block;
+}
+
+@layer utilities {
+  .transition-transform {
+    transition-property: transform;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
   }
 } 
