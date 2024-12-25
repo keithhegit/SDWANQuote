@@ -6,7 +6,10 @@
     "next": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "@tailwindcss/forms": "^0.5.7"
+    "@tailwindcss/forms": "^0.5.7",
+    "@heroicons/react": "^2.1.1",
+    "next-themes": "^0.2.1",
+    "framer-motion": "^11.0.3"
   },
   "devDependencies": {
     "@types/node": "latest",
