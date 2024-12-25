@@ -7,9 +7,12 @@
     "react": "latest",
     "react-dom": "latest",
     "@tailwindcss/forms": "^0.5.7",
+    "@headlessui/react": "^1.7.18",
     "@heroicons/react": "^2.1.1",
+    "framer-motion": "^11.0.3",
     "next-themes": "^0.2.1",
-    "framer-motion": "^11.0.3"
+    "clsx": "^2.1.0",
+    "tailwind-merge": "^2.2.0"
   },
   "devDependencies": {
     "@types/node": "latest",

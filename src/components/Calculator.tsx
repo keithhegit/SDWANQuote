@@ -1,9 +1,21 @@
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { CalculatorInput, CalculationResult } from '@/types';
 import { calculatePrice } from '@/utils/calculator';
 import { DISCOUNTS } from '@/data/constants';
 import { priceList } from '@/data/prices';
 import { Logo } from '@/components/Logo';
+import { ThemeToggle } from '@/components/ThemeToggle';
+import { Select } from '@/components/ui/Select';
+import { Input } from '@/components/ui/Input';
+import { Button } from '@/components/ui/Button';
+import { 
+  GlobeAsiaAustraliaIcon, 
+  SignalIcon,
+  CalculatorIcon,
+  PlusIcon,
+  DevicePhoneMobileIcon
+} from '@heroicons/react/24/outline';
 
 export default function Calculator() {
   const [input, setInput] = useState<CalculatorInput>({
@@ -28,128 +40,140 @@ export default function Calculator() {
   };
 
   return (
-    <div className="min-h-screen bg-white p-6">
-      {/* Logo */}
-      <div className="mb-4">
-        <Logo />
-      </div>
-
-      {/* 标题 */}
-      <h1 className="text-2xl font-bold mb-6">SDWAN价格计算器</h1>
-
-      <div className="space-y-6 max-w-sm">
-        {/* 出口选择 */}
-        <div>
-          <div className="flex items-center mb-2">
-            <label className="w-24 text-gray-700">出口方向</label>
-            <select
-              className="flex-1 border border-gray-300 rounded px-2 py-1"
-              value={input.exportType}
-              onChange={(e) => setInput({...input, exportType: e.target.value})}
-            >
-              <option value="">请选择</option>
-              {exportTypes.map(type => (
-                <option key={type} value={type}>{type}</option>
-              ))}
-            </select>
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300">
+      <ThemeToggle />
+      
+      <div className="container mx-auto px-4 py-8 max-w-2xl">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="space-y-8"
+        >
+          {/* Logo和标题 */}
+          <div className="text-center space-y-4">
+            <Logo />
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+              SDWAN价格计算器
+            </h1>
           </div>
 
-          <div className="flex items-center">
-            <label className="w-24 text-gray-700">带宽</label>
-            <select
-              className="flex-1 border border-gray-300 rounded px-2 py-1"
-              value={input.bandwidth}
-              onChange={(e) => setInput({...input, bandwidth: Number(e.target.value)})}
-              disabled={!input.exportType}
-            >
-              <option value="0">请选择</option>
-              {input.exportType && bandwidths(input.exportType).map(bw => (
-                <option key={bw} value={bw}>{bw}M</option>
-              ))}
-            </select>
-          </div>
-        </div>
+          {/* 主要内容区域 */}
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 space-y-6">
+            {/* 出口选择 */}
+            <div className="space-y-4">
+              <div className="flex items-center gap-2 text-lg font-medium text-gray-900 dark:text-white">
+                <GlobeAsiaAustraliaIcon className="w-5 h-5" />
+                <span>网络配置</span>
+              </div>
+              
+              <Select
+                label="出口方向"
+                options={exportTypes.map(type => ({ value: type, label: type }))}
+                value={input.exportType}
+                onChange={(e) => setInput({...input, exportType: e.target.value})}
+              />
 
-        {/* 折扣选择 */}
-        <div>
-          <label className="block text-gray-700 mb-2">折扣</label>
-          <div className="flex gap-2">
-            {DISCOUNTS.map(({ label, value }) => (
-              <button
-                key={value}
-                onClick={() => setInput({...input, discount: value})}
-                className={`px-4 py-1 border rounded
-                  ${input.discount === value 
-                    ? 'bg-brand text-white border-brand' 
-                    : 'bg-white text-gray-700 border-gray-300'
-                  }`}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
-        </div>
+              <Select
+                label="带宽"
+                options={input.exportType 
+                  ? bandwidths(input.exportType).map(bw => ({ value: bw, label: `${bw}M` }))
+                  : []
+                }
+                value={input.bandwidth}
+                onChange={(e) => setInput({...input, bandwidth: Number(e.target.value)})}
+                disabled={!input.exportType}
+              />
+            </div>
 
-        {/* 附加服务 */}
-        <div>
-          <label className="block text-gray-700 mb-2">其他</label>
-          <div className="space-y-2">
-            <div className="flex items-center">
-              <label className="w-32 text-gray-700">增加IP数量</label>
-              <input
+            {/* 折扣选择 */}
+            <div className="space-y-4">
+              <div className="flex items-center gap-2 text-lg font-medium text-gray-900 dark:text-white">
+                <CalculatorIcon className="w-5 h-5" />
+                <span>折扣选择</span>
+              </div>
+              
+              <div className="grid grid-cols-3 gap-2">
+                {DISCOUNTS.map(({ label, value }) => (
+                  <Button
+                    key={value}
+                    variant={input.discount === value ? 'primary' : 'outline'}
+                    onClick={() => setInput({...input, discount: value})}
+                  >
+                    {label}
+                  </Button>
+                ))}
+              </div>
+            </div>
+
+            {/* 附加服务 */}
+            <div className="space-y-4">
+              <div className="flex items-center gap-2 text-lg font-medium text-gray-900 dark:text-white">
+                <PlusIcon className="w-5 h-5" />
+                <span>附加服务</span>
+              </div>
+              
+              <Input
                 type="number"
-                min="0"
-                className="flex-1 border border-gray-300 rounded px-2 py-1"
+                label="增加IP数量"
+                min={0}
                 value={input.extraIPs}
                 onChange={(e) => setInput({...input, extraIPs: Number(e.target.value)})}
               />
-            </div>
-            <div className="flex items-center">
-              <label className="w-32 text-gray-700">增加移动终端数量</label>
-              <input
+
+              <Input
                 type="number"
-                min="0"
-                className="flex-1 border border-gray-300 rounded px-2 py-1"
+                label="增加移动终端数量"
+                min={0}
                 value={input.mobileTerminals}
                 onChange={(e) => setInput({...input, mobileTerminals: Number(e.target.value)})}
               />
             </div>
-          </div>
-        </div>
 
-        {/* 计算按钮 */}
-        <button
-          onClick={handleCalculate}
-          className="w-20 py-1 bg-brand text-white rounded"
-        >
-          计算
-        </button>
-
-        {/* 计算结果 */}
-        {result && (
-          <div className="mt-4 space-y-2">
-            <div className="flex justify-between">
-              <span>基础价格：</span>
-              <span>¥{result.basePrice.toFixed(2)}</span>
-            </div>
-            <div className="flex justify-between">
-              <span>折扣后价格：</span>
-              <span>¥{result.discountedPrice.toFixed(2)}</span>
-            </div>
-            <div className="flex justify-between">
-              <span>额外IP费用：</span>
-              <span>¥{result.extraIPsCost.toFixed(2)}</span>
-            </div>
-            <div className="flex justify-between">
-              <span>移动终端费用：</span>
-              <span>¥{result.terminalsCost.toFixed(2)}</span>
-            </div>
-            <div className="flex justify-between font-bold">
-              <span>总价：</span>
-              <span>¥{result.totalPrice.toFixed(2)}</span>
-            </div>
+            {/* 计算按钮 */}
+            <Button
+              size="lg"
+              className="w-full"
+              onClick={handleCalculate}
+            >
+              计算价格
+            </Button>
           </div>
-        )}
+
+          {/* 计算结果 */}
+          {result && (
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6"
+            >
+              <h2 className="text-lg font-medium text-gray-900 dark:text-white mb-4">计算结果</h2>
+              <div className="space-y-3">
+                <div className="flex justify-between text-gray-600 dark:text-gray-400">
+                  <span>基础价格</span>
+                  <span>¥{result.basePrice.toFixed(2)}</span>
+                </div>
+                <div className="flex justify-between text-gray-600 dark:text-gray-400">
+                  <span>折扣后价格</span>
+                  <span>¥{result.discountedPrice.toFixed(2)}</span>
+                </div>
+                <div className="flex justify-between text-gray-600 dark:text-gray-400">
+                  <span>额外IP费用</span>
+                  <span>¥{result.extraIPsCost.toFixed(2)}</span>
+                </div>
+                <div className="flex justify-between text-gray-600 dark:text-gray-400">
+                  <span>移动终端费用</span>
+                  <span>¥{result.terminalsCost.toFixed(2)}</span>
+                </div>
+                <div className="pt-3 border-t border-gray-200 dark:border-gray-700">
+                  <div className="flex justify-between text-lg font-medium text-gray-900 dark:text-white">
+                    <span>总价</span>
+                    <span>¥{result.totalPrice.toFixed(2)}</span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </motion.div>
       </div>
     </div>
   );
