@@ -11,22 +11,15 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: {
-          50: '#f0f9ff',
-          100: '#e0f2fe',
-          200: '#bae6fd',
-          300: '#7dd3fc',
-          400: '#38bdf8',
-          500: '#0ea5e9',
-          600: '#0284c7',
-          700: '#0369a1',
-          800: '#075985',
-          900: '#0c4a6e',
+        brand: {
+          light: '#66B5FF',
+          DEFAULT: '#1890FF',
+          dark: '#0B61D3',
         },
         dark: {
-          bg: '#0f172a',
-          card: '#1e293b',
-          border: '#334155'
+          bg: '#141414',
+          card: '#1F1F1F',
+          border: '#303030'
         }
       },
       animation: {
